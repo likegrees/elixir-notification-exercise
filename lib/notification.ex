@@ -4,12 +4,15 @@ defmodule Notification do
   def start do
     # __MODULE__ si riferisce al modulo attuale un alterego del classico this.
     # con :init ci si riferisce all'atom init che in questo caso rappresenta la nostra funzione init
-    # l'ultimo valore è una mappa che viene passata come argomento ad init.
+    # l'ultimo valore è una lista che viene passata come argomento ad init. Notare che in questo progetto faremo uso
+    # del pattern matching e come primo argomento che passiamo ad init abbiamo una tupla, il primo valore della tupla
+    # rappresenta la count dei messaggi e come secondo valore abbiamo la lista dei messaggi ricevuti, siccome stiamo
+    # lanciando per la prima volta il message logger il counter è 0 e la lista è vuota.
     spawn(__MODULE__, :init, [{0, []}])
   end
 
   def init(tupla) do
-    # in init possiamo inizializzare tutti i dati che vogliamo in questo caso passiamo subito al lancio di
+    # in init possiamo inizializzare tutte le variabili necessarie. In questo caso passiamo subito al lancio di
     # messageLogger che a sua volta richiamera se stesso per rimanere sempre in ascolto.
     messageLogger(tupla)
   end
